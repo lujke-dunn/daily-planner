@@ -1,3 +1,3 @@
-module todo-app
+module src
 
 go 1.21
