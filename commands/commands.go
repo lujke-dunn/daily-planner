@@ -1,26 +1,69 @@
 package commands 
 
-import "fmt"
+import (
+	"src/list"
+	"fmt"
+	"strings"
+)
 
+var list list.TodoList = list.TodoList{Date: "16/01/2025", }
 
-type commandTitle struct {
-	command string
-	commandDesc string
+var Commands = [3]string{	
+	"pd", 
+	"nd", 
+	"add",
 }
 
-func getCommand(ct *commandTitle) string {
-	return ct.command
-}
+func splitStringIntoPrefix(input string) (string) {
+	input = strings.TrimSpace(input)	
 
 
-
-// map of command names
-var commandName = map[commandTitle]int {
-	{command: "pd", commandDesc: "Previous Day"}: 0,
-	{command: "nd", commandDesc: "Next Day"}: 1,
-	{command: "add", commandDesc: "Add Item To Current Days List"}: 2, 
-	{command: "delete", commandDesc: "Delete Item at Index Specified"}: 3, 
-	{command: "help", commandDesc: "Lists all commands"} : 4,
+	before := strings.SplitN(input, " ", 2)
 	
+	return before[0]
+}
+
+
+func CheckisCommand(command string) bool { 
+	if command == "" {
+		return false
+	}
+
+	prefix := splitStringIntoPrefix(command)
+	if prefix == "" {
+		return false
+	}
+
+	for _, c := range Commands {
+		if prefix == c {
+			return true
+		}
+	}
+	return false
+}
+
+func DoCommand(command string) {
+	
+	command = strings.TrimSpace(command)
+	prefix := splitStringIntoPrefix(command)
+
+	
+	switch prefix {
+	case "pd":
+		print("previous")
+	case "nd":
+		print("next")
+	case "add": 
+		parts := strings.SplitN(command, "", 2)
+		item := ""
+
+		if len(parts) > 1 {
+			item = parts[1]
+		}
+		fmt.Printf("added %s\n", item)
+	}
+}
+
+func add(itemAdded string) { 
 	
 }

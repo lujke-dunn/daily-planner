@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"io"
+	"src/commands"
 )
 
 const PROMPT = ">>"
@@ -19,6 +20,16 @@ func Start(in io.Reader, out io.Writer) {
 		}
 
 		text := scanner.Text()
-		io.WriteString(out, text)		
+
+		if (commands.CheckisCommand(text)) {
+			commands.DoCommand(text)
+		} else {
+			giveError()
+		}	
 	}
+}
+
+
+func giveError() {
+	fmt.Print("Invalid Command")
 }
