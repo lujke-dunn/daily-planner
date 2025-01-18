@@ -6,12 +6,13 @@ import (
 	"strings"
 )
 
-var list list.TodoList = list.TodoList{Date: "16/01/2025", }
+var TodoList list.TodoList = list.TodoList{Date: "16/01/2025", ListItems: []string{}}
 
-var Commands = [3]string{	
+var Commands = [4]string{	
 	"pd", 
 	"nd", 
 	"add",
+  "list", 
 }
 
 func splitStringIntoPrefix(input string) (string) {
@@ -59,11 +60,17 @@ func DoCommand(command string) {
 
 		if len(parts) > 1 {
 			item = parts[1]
-		}
-		fmt.Printf("added %s\n", item)
+      add(item)
+      TodoList.PrintList()
+		} else {
+      fmt.Println("no item added")
+    }
+  case "list":
+      TodoList.PrintList()
 	}
 }
 
 func add(itemAdded string) { 
-	
+	TodoList.AppendItems(itemAdded)
+  
 }
