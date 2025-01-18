@@ -4,11 +4,13 @@ import (
 	"src/list"
 	"fmt"
 	"strings"
+  "time"
 )
 
 var TodoList list.TodoList = list.TodoList{Date: "16/01/2025", ListItems: []string{}}
 
-var Commands = [4]string{	
+var Commands = [5]string{	
+  "date",
 	"pd", 
 	"nd", 
 	"add",
@@ -50,6 +52,10 @@ func DoCommand(command string) {
 
 	
 	switch prefix {
+  case "date": 
+    currentTime := time.Now()
+    print(currentTime.Year() - 1)
+
 	case "pd":
 		print("previous")
 	case "nd":
