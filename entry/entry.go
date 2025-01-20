@@ -28,6 +28,7 @@ func Start(in io.Reader, out io.Writer) {
 		if (commands.CheckisCommand(text)) {
 			commands.DoCommand(text)
 			clearTerminal()
+			fmt.Print(DisplayRelevantInformation())
 		  fmt.Print(PROMPT)
 
 		} else {
@@ -44,8 +45,16 @@ func clearTerminal() {
 }
 
 func DisplayRelevantInformation() string {
-	return "do command"
+	
+	date := commands.TodoList.Date
+	list := commands.TodoList.PrintList()
+
+
+	ui := "========================" + date + "=======================\n"
+	ui += list
+	return ui 
 }
+
 
 func giveError() {
 	fmt.Print("Invalid Command")

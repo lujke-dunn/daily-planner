@@ -19,8 +19,14 @@ func (t *TodoList) AppendItems(items ...string) {
 	t.ListItems = append(t.ListItems, items...)
 }
 
-func (t *TodoList) PrintList() {
+func (t *TodoList) PrintList() string {	
+	var a string = "" 
+
+
   for i, items := range t.ListItems {
-    fmt.Printf("%d. %s\n", i+1, items)
+    a += fmt.Sprintf("%d. %s\n", i+1, items)
   }
+
+
+	return a
 }
