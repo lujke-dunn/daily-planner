@@ -48,7 +48,6 @@ func newTodoListDate(dateToChange string) {
 var Commands = [5]string{	
   "date",
 	"cd", 
-	"return"
 	"add",
   "list", 
 }
@@ -121,13 +120,7 @@ func DoCommand(command string) {
 		} else {
       fmt.Println("no item added")
     }
-	case "return": 
-		parts := strings.SplitN(command, "", 1)
-		
-		if len(parts) > 1 {
-			fmt.Println("")
-		}
-  case "list":
+		case "list":
       TodoList.PrintList()
 	}
 }
