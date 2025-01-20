@@ -16,28 +16,27 @@ var Month = currentTime.Month()
 var Day = currentTime.Day()
 
 func changeOrGetDate(Year int, Month time.Month , Day int, timeTraversed int) string {
-	y := strconv.Itoa(Year)
-	m := int(Month)
-	mStr := strconv.Itoa(m)
-	d := strconv.Itoa(Day)
+		if timeTraversed == 0 {
+			return formatDate(Year, Month, Day)
+		}
+		
+		currentDate := time.Date(Year, Month, Day, 0, 0, 0, 0, time.UTC)
 
+		newDate := currentDate.AddDate(0, 0, timeTraversed) // year, month, days ; moved 
+		
+		return formatDate(newDate.Year(), newDate.Month(), newDate.Day())
+}
 
-	if (timeTraversed == 0) {
-		return y + "-" + mStr + "-" + d
-	}
+func formatDate(year int, month time.Month, day int) string {
+	monthInt := int(month)
 
-	if (timeTraversed > 0) {
-		newDay := Day + timeTraversed
-		strNewDay := strconv.Itoa(newDay)
-		newDate := y + "-" + mStr + "-" + (strNewDay)
-
-		return newDate
-	}
+	monthStr := fmt.Sprintf("%02d", monthInt)
+	dayStr := fmt.Sprintf("%02d", day)
 	
-
-	return ""
+	return fmt.Sprintf("%s-%s-%d", dayStr, monthStr, year)
 
 }
+
 
 var TodoList list.TodoList = list.TodoList{Date: changeOrGetDate(Year, Month, Day, 0), ListItems: []string{}}
 
@@ -49,6 +48,7 @@ func newTodoListDate(dateToChange string) {
 var Commands = [5]string{	
   "date",
 	"cd", 
+	"return"
 	"add",
   "list", 
 }
@@ -121,6 +121,12 @@ func DoCommand(command string) {
 		} else {
       fmt.Println("no item added")
     }
+	case "return": 
+		parts := strings.SplitN(command, "", 1)
+		
+		if len(parts) > 1 {
+			fmt.Println("")
+		}
   case "list":
       TodoList.PrintList()
 	}
