@@ -11,6 +11,10 @@ type TodoList struct {
 }
 
 
+func (t *TodoList) ModifyDate(newDate string) {
+	t.Date = newDate
+}
+
 func (t *TodoList) AppendItems(items ...string) { 
 	t.ListItems = append(t.ListItems, items...)
 }
