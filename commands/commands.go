@@ -5,9 +5,25 @@ import (
 	"fmt"
 	"strings"
   "time"
+	"strconv"
 )
 
-var TodoList list.TodoList = list.TodoList{Date: "16/01/2025", ListItems: []string{}}
+
+var currentTime = time.Now()
+
+var Year = currentTime.Year()
+var Month = currentTime.Month()
+var Day = currentTime.Day()
+
+func changeOrGetDate(Year int, Month time.Month , Day int, timeTraversed int) string {
+	y := strconv.Itoa(Year)
+	m := int(Month)
+	mStr := strconv.Itoa(m)
+	d := strconv.Itoa(Day)
+	return y + "-" + mStr + "-" + d
+}
+
+var TodoList list.TodoList = list.TodoList{Date: changeOrGetDate(Year, Month, Day, 0), ListItems: []string{}}
 
 var Commands = [5]string{	
   "date",
@@ -45,6 +61,7 @@ func CheckisCommand(command string) bool {
 	return false
 }
 
+
 func DoCommand(command string) {
 	
 	command = strings.TrimSpace(command)
@@ -53,8 +70,8 @@ func DoCommand(command string) {
 	
 	switch prefix {
   case "date": 
-    currentTime := time.Now()
-    print(currentTime.Year() - 1)
+    currentTime := TodoList.Date
+    print(currentTime)
 
 	case "pd":
 		print("previous")
