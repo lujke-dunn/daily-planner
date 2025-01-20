@@ -47,7 +47,7 @@ func clearTerminal() {
 func DisplayRelevantInformation() string {
 	
 	date := commands.TodoList.Date
-	list := commands.TodoList.PrintList()
+	list := commands.TodoList.GetList()
 
 
 	ui := "========================" + date + "=======================\n"

@@ -19,7 +19,7 @@ func (t *TodoList) AppendItems(items ...string) {
 	t.ListItems = append(t.ListItems, items...)
 }
 
-func (t *TodoList) PrintList() string {	
+func (t *TodoList) GetList() string {	
 	var a string = "" 
 
 

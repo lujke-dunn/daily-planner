@@ -116,12 +116,12 @@ func DoCommand(command string) {
 		if len(parts) > 1 {
 			item = parts[1]
       add(item)
-      fmt.Print(TodoList.PrintList())
+      fmt.Print(TodoList.GetList())
 		} else {
       fmt.Println("no item added")
     }
 		case "list":
-			fmt.Print(TodoList.PrintList())
+			fmt.Print(TodoList.GetList())
 	}
 }
 
