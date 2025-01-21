@@ -46,7 +46,7 @@ func newTodoListDate(dateToChange string) {
 
 
 var Commands = [5]string{	
-  "date",
+	"help",
 	"cd", 
 	"add",
   "list", 
@@ -88,10 +88,6 @@ func DoCommand(command string) {
 
 	
 	switch prefix {
-  case "date": 
-    currentTime := TodoList.Date
-    print(currentTime)
-
 	case "cd":
 		parts := strings.SplitN(command, " ", 2)
 		daysMoved := ""
@@ -122,6 +118,11 @@ func DoCommand(command string) {
     }
 		case "list":
 			fmt.Print(TodoList.GetList())
+		case "help":
+			fmt.Print("Try these commands:\n")
+			fmt.Print("add ___: adds a item to the list, takes a string as an argument\n")
+			fmt.Print("cd ___: changes the current viewing date. takes a int as an argument positive integers go into the future by x days, negative integers go into the past by -x days.\n")
+			fmt.Print("help: displays list of commands")
 	}
 }
 

@@ -57,5 +57,6 @@ func DisplayRelevantInformation() string {
 
 
 func giveError() {
-	fmt.Print("Invalid Command")
+	fmt.Print("Invalid Command\n")
+	commands.DoCommand("help")
 }
