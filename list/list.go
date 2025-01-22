@@ -10,6 +10,29 @@ type TodoList struct {
 	ListItems []string
 }
 
+type TodoManager struct {
+	Lists map[string]*TodoList
+}
+
+func CreateTodoManager() *TodoManager {
+	return &TodoManager{
+		Lists: make(map[string]*TodoList), 
+	}
+}
+
+func (tm *TodoManager) GetOrCreateTodoList(date string) *TodoList {
+	if list, exists := tm.Lists[date]; exists {
+		return list
+	}
+
+	newList := &TodoList{
+		Date: date, 
+		ListItems: []string{},
+	}
+	tm.Lists[date] = newList
+	return newList
+}
+
 
 func (t *TodoList) ModifyDate(newDate string) {
 	t.Date = newDate

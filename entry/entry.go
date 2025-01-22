@@ -9,20 +9,16 @@ import (
 	"src/commands"
 )
 
-const PROMPT = ">>"
+const PROMPT = ">> "
 
 func Start(in io.Reader, out io.Writer) {
 	
-	fmt.Println("Hey %s! Welcome to the daily planner")
+	fmt.Println("Hey, Welcome to the daily planner")
+	fmt.Print(DisplayRelevantInformation())
 
 	scanner := bufio.NewScanner(in)
 	fmt.Print(PROMPT)
 	for scanner.Scan() {
-		scanned := scanner.Scan()
-		if !scanned {
-			return
-		}
-
 		text := scanner.Text()
 
 		if (commands.CheckisCommand(text)) {
@@ -33,7 +29,7 @@ func Start(in io.Reader, out io.Writer) {
 
 		} else {
 			giveError()
-		  fmt.Print(PROMPT)
+			fmt.Print("\n"+PROMPT)
 		}	
 	}
 }
@@ -46,8 +42,8 @@ func clearTerminal() {
 
 func DisplayRelevantInformation() string {
 	
-	date := commands.TodoList.Date
-	list := commands.TodoList.GetList()
+	date := commands.CurrentList.Date
+	list := commands.CurrentList.GetList()
 
 
 	ui := "========================" + date + "=======================\n"

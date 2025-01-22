@@ -1,5 +1,6 @@
 package commands 
 
+
 import (
 	"src/list"
 	"fmt"
@@ -14,6 +15,9 @@ var currentTime = time.Now()
 var Year = currentTime.Year()
 var Month = currentTime.Month()
 var Day = currentTime.Day()
+var TodoManager = list.CreateTodoManager()
+var CurrentDate = changeOrGetDate(Year, Month, Day, 0)
+var CurrentList = TodoManager.GetOrCreateTodoList(CurrentDate)
 
 func changeOrGetDate(Year int, Month time.Month , Day int, timeTraversed int) string {
 		if timeTraversed == 0 {
@@ -38,10 +42,10 @@ func formatDate(year int, month time.Month, day int) string {
 }
 
 
-var TodoList list.TodoList = list.TodoList{Date: changeOrGetDate(Year, Month, Day, 0), ListItems: []string{}}
-
 func newTodoListDate(dateToChange string) {
-	TodoList.ModifyDate(dateToChange)
+	CurrentDate = dateToChange
+	CurrentList = TodoManager.GetOrCreateTodoList(CurrentDate)
+
 }
 
 
@@ -104,7 +108,8 @@ func DoCommand(command string) {
 			newTodoListDate(changeOrGetDate(Year, Month, Day, daysMovedInt))
 			print(changeOrGetDate(Year, Month, Day, daysMovedInt))
 
-		}		
+		}	
+
 	case "add": 
 		parts := strings.SplitN(command, " ", 2)
 		item := ""
@@ -112,21 +117,22 @@ func DoCommand(command string) {
 		if len(parts) > 1 {
 			item = parts[1]
       add(item)
-      fmt.Print(TodoList.GetList())
+      fmt.Print(CurrentList.GetList())
 		} else {
       fmt.Println("no item added")
     }
 		case "list":
-			fmt.Print(TodoList.GetList())
+			fmt.Print(CurrentList.GetList())
 		case "help":
 			fmt.Print("Try these commands:\n")
 			fmt.Print("add ___: adds a item to the list, takes a string as an argument\n")
-			fmt.Print("cd ___: changes the current viewing date. takes a int as an argument positive integers go into the future by x days, negative integers go into the past by -x days.\n")
+			fmt.Print("cd ___: changes the current viewing date. takes a int as an argument positive integers go into the future by x days, negative integers go into the past by -x days. Note: cd is relative.\n")
 			fmt.Print("help: displays list of commands")
 	}
 }
 
 func add(itemAdded string) { 
-	TodoList.AppendItems(itemAdded)
+	CurrentList.AppendItems(itemAdded)
+	fmt.Print("")
   
 }
