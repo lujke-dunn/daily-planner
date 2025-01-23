@@ -38,6 +38,16 @@ func (t *TodoList) ModifyDate(newDate string) {
 	t.Date = newDate
 }
 
+
+func (t *TodoList) DeleteItem(index int) error {
+	if index < 0 || index >= len(t.ListItems) {
+		return fmt.Errorf("index out of range")
+	}
+	t.ListItems = append(t.ListItems[:index], t.ListItems[+1:]...)
+	return nil
+}
+
+
 func (t *TodoList) AppendItems(items ...string) { 
 	t.ListItems = append(t.ListItems, items...)
 }

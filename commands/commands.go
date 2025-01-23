@@ -51,6 +51,7 @@ func newTodoListDate(dateToChange string) {
 
 var Commands = [5]string{	
 	"help",
+	"delete",
 	"cd", 
 	"add",
   "list", 
@@ -109,7 +110,19 @@ func DoCommand(command string) {
 			print(changeOrGetDate(Year, Month, Day, daysMovedInt))
 
 		}	
-
+	case "delete": 
+		parts := strings.SplitN(command, " ", 2)
+		id := ""
+		if len(parts) > 1 {
+			id = parts[1]
+			if index, err := strconv.Atoi(id); err == nil {
+				if err := CurrentList.DeleteItem(index - 1); err != nil {
+					fmt.Println("Error:", err)
+				} else {
+					fmt.Print(CurrentList.GetList())
+				}
+			}
+		}
 	case "add": 
 		parts := strings.SplitN(command, " ", 2)
 		item := ""
