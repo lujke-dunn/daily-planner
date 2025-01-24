@@ -59,6 +59,7 @@ var Commands = [5]string{
   "list", 
 }
 
+// a helper function to grab the first piece of text shown in the input
 func splitStringIntoPrefix(input string) (string) {
 	input = strings.TrimSpace(input)	
 
@@ -68,7 +69,7 @@ func splitStringIntoPrefix(input string) (string) {
 	return before[0]
 }
 
-
+// check if command is a valid command by comparing string to Commands list items 
 func CheckisCommand(command string) bool { 
 	if command == "" {
 		return false
