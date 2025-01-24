@@ -6,7 +6,7 @@ import (
 )
 
 
-
+// entry 
 func main() {
 	entry.Start(os.Stdin, os.Stdout) 
 }

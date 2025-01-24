@@ -11,6 +11,9 @@ import (
 
 const PROMPT = ">> "
 
+
+// This function takes user input for commands and prints a the chosen days todo list
+// Main loop occurs here
 func Start(in io.Reader, out io.Writer) {
 	
 	fmt.Println("Hey, Welcome to the daily planner")
@@ -34,12 +37,15 @@ func Start(in io.Reader, out io.Writer) {
 	}
 }
 
+// clears the terminal 
+// called when a valid command is written
 func clearTerminal() {
 	cmd := exec.Command("clear")
 	cmd.Stdout = os.Stdout
 	cmd.Run()
 }
 
+// prints out the chosen dates list and corresponding entries 
 func DisplayRelevantInformation() string {
 	
 	date := commands.CurrentList.Date
@@ -51,7 +57,7 @@ func DisplayRelevantInformation() string {
 	return ui 
 }
 
-
+// note: needs to add an interface for more varied error responses 
 func giveError() {
 	fmt.Print("Invalid Command\n")
 	commands.DoCommand("help")

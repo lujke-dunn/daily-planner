@@ -19,6 +19,8 @@ var TodoManager = list.CreateTodoManager()
 var CurrentDate = changeOrGetDate(Year, Month, Day, 0)
 var CurrentList = TodoManager.GetOrCreateTodoList(CurrentDate)
 
+// this changes the date 
+
 func changeOrGetDate(Year int, Month time.Month , Day int, timeTraversed int) string {
 		if timeTraversed == 0 {
 			return formatDate(Year, Month, Day)
@@ -85,7 +87,8 @@ func CheckisCommand(command string) bool {
 	return false
 }
 
-
+// these splits pre-checked commands into prefix and the other thing 
+// Then does some series of action afterwards 
 func DoCommand(command string) {
 	
 	command = strings.TrimSpace(command)
